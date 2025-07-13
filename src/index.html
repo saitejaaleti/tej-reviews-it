@@ -2,12 +2,118 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>TejReviewsIt</title>
+  <title>Tej Reviews - Your Trusted Review Platform</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta name="description" content="Discover honest reviews on movies, books, shoes, electronics, and more. Share your experiences and help others make informed decisions.">
+  <meta name="keywords" content="reviews, movies, books, shoes, electronics, restaurants, games, ratings, recommendations">
+  <meta name="author" content="Tej Reviews">
+  
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Tej Reviews - Your Trusted Review Platform">
+  <meta property="og:description" content="Discover honest reviews on movies, books, shoes, electronics, and more.">
+  <meta property="og:image" content="/assets/images/og-image.jpg">
+  <meta property="og:url" content="https://tejreviews.com">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Tej Reviews - Your Trusted Review Platform">
+  <meta name="twitter:description" content="Discover honest reviews on movies, books, shoes, electronics, and more.">
+  <meta name="twitter:image" content="/assets/images/twitter-card.jpg">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Material Design Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#667eea">
+  <meta name="msapplication-TileColor" content="#667eea">
+  
+  <!-- Manifest for PWA -->
+  <link rel="manifest" href="/manifest.json">
+  
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" as="style">
+  
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Tej Reviews",
+    "description": "Your trusted platform for honest reviews on movies, books, shoes, electronics, and more",
+    "url": "https://tejreviews.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://tejreviews.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
 </head>
-<body>
-  <app-root></app-root>
+<body class="mat-typography">
+  <app-root>
+    <!-- Loading Spinner -->
+    <div class="loading-overlay" id="initial-loader">
+      <div class="loading-spinner">
+        <svg width="50" height="50" viewBox="0 0 50 50">
+          <circle cx="25" cy="25" r="20" fill="none" stroke="#667eea" stroke-width="3" stroke-linecap="round" stroke-dasharray="31.416" stroke-dashoffset="31.416">
+            <animate attributeName="stroke-array" dur="2s" values="0 31.416;15.708 15.708;0 31.416" repeatCount="indefinite"/>
+            <animate attributeName="stroke-dashoffset" dur="2s" values="0;-15.708;-31.416" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+        <div class="loading-text">Loading Tej Reviews...</div>
+      </div>
+    </div>
+  </app-root>
+
+  <!-- Service Worker Registration -->
+  <script>
+    // Hide loading spinner once Angular loads
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        const loader = document.getElementById('initial-loader');
+        if (loader) {
+          loader.style.opacity = '0';
+          setTimeout(function() {
+            loader.style.display = 'none';
+          }, 300);
+        }
+      }, 1000);
+    });
+
+    // Register Service Worker for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+          .then(function(registration) {
+            console.log('SW registered: ', registration);
+          })
+          .catch(function(registrationError) {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
+
+    // Error handling
+    window.addEventListener('error', function(e) {
+      console.error('Global error:', e.error);
+    });
+
+    window.addEventListener('unhandledrejection', function(e) {
+      console.error('Unhandled promise rejection:', e.reason);
+    });
+  </script>
 </body>
 </html>
