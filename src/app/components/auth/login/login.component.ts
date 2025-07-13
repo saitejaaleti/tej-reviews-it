@@ -92,7 +92,7 @@ import { AuthService } from '../../../services/auth.service';
 
           <div class="demo-credentials">
             <p class="demo-title">Demo Credentials:</p>
-            <p class="demo-text">Email: demo@tejreviews.com | Password: demo123</p>
+            <p class="demo-text">Email: demo&#64;tejreviews.com | Password: demo123</p>
             <button mat-stroked-button (click)="fillDemoCredentials()" class="demo-button">
               Use Demo Account
             </button>
