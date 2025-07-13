@@ -135,7 +135,7 @@ import { ReviewCardComponent } from '../review-card/review-card.component';
 
         <!-- Profile Content Tabs -->
         <mat-card class="profile-tabs-card">
-          <mat-tab-group class="profile-tabs" [(selectedIndex)]="selectedTabIndex()">
+          <mat-tab-group class="profile-tabs" [selectedIndex]="selectedTabIndex()">
             <!-- My Reviews Tab -->
             <mat-tab label="My Reviews">
               <div class="tab-content">
