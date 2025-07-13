@@ -397,10 +397,12 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Component initialization if needed
+    this.isAuthenticated = this.authService.isAuthenticated;
+    this.currentUser = this.authService.currentUser;
   }
 
   isAuthenticated = this.authService.isAuthenticated;
+  currentUser = this.authService.currentUser;
   
   reviews = this.reviewService.reviews;
   recentReviews = computed(() => this.reviewService.getRecentReviews(6));
