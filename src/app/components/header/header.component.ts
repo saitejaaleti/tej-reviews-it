@@ -264,6 +264,8 @@ import { ReviewService } from '../../services/review.service';
 })
 export class HeaderComponent {
   searchQuery = '';
+  isAuthenticated!: typeof this.authService.isAuthenticated;
+  currentUser!: typeof this.authService.currentUser;
 
   constructor(
     private authService: AuthService,
@@ -271,8 +273,10 @@ export class HeaderComponent {
     private router: Router
   ) {}
 
-  isAuthenticated = this.authService.isAuthenticated;
-  currentUser = this.authService.currentUser;
+  ngOnInit(): void {
+    this.isAuthenticated = this.authService.isAuthenticated;
+    this.currentUser = this.authService.currentUser;
+  }
   
   categoryStats = computed(() => this.reviewService.getCategoryStats());
 

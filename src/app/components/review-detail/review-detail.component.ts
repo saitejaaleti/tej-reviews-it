@@ -13,6 +13,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatConfirmDialogComponent } from '../shared/mat-confirm-dialog.component';
 import { ReviewService, Review, Comment } from '../../services/review.service';
 import { AuthService } from '../../services/auth.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-review-detail',
@@ -26,7 +27,8 @@ import { AuthService } from '../../services/auth.service';
     MatChipsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTooltipModule
   ],
   template: `
     @if (review()) {
@@ -717,6 +719,8 @@ import { AuthService } from '../../services/auth.service';
 export class ReviewDetailComponent implements OnInit {
   review = signal<Review | null>(null);
   commentControl = new FormControl('', [Validators.required, Validators.minLength(3)]);
+  isAuthenticated!: typeof this.authService.isAuthenticated;
+  currentUser!: typeof this.authService.currentUser;
 
   constructor(
     private route: ActivatedRoute,
@@ -733,10 +737,11 @@ export class ReviewDetailComponent implements OnInit {
       const foundReview = this.reviewService.getReviewById(reviewId);
       this.review.set(foundReview || null);
     }
+    this.isAuthenticated = this.authService.isAuthenticated;
+    this.currentUser = this.authService.currentUser;
   }
 
-  isAuthenticated = this.authService.isAuthenticated;
-  currentUser = this.authService.currentUser;
+  
 
   reviewComments = computed(() => {
     const reviewId = this.review()?.id;

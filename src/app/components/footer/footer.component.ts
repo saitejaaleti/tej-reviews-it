@@ -16,13 +16,13 @@ import { RouterLink } from '@angular/router';
           <p>Your trusted platform for honest reviews on movies, books, shoes, and more!</p>
           <div class="social-links">
             <button mat-icon-button (click)="openLink('https://twitter.com')">
-              <mat-icon>{% raw %}{{ getTwitterIcon() }}{% endraw %}</mat-icon>
+              <mat-icon>{{ getTwitterIcon() }}</mat-icon>
             </button>
             <button mat-icon-button (click)="openLink('https://facebook.com')">
               <mat-icon>facebook</mat-icon>
             </button>
             <button mat-icon-button (click)="openLink('https://instagram.com')">
-              <mat-icon>{% raw %}{{ getInstagramIcon() }}{% endraw %}</mat-icon>
+              <mat-icon>{{ getInstagramIcon() }}</mat-icon>
             </button>
           </div>
         </div>

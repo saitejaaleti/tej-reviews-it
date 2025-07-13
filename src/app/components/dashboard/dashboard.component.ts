@@ -390,6 +390,10 @@ export class DashboardComponent implements OnInit {
   showTopRated = false;
   showMostLiked = false;
 
+  isAuthenticated!: typeof this.authService.isAuthenticated;
+  currentUser!: typeof this.authService.currentUser;
+  reviews!: typeof this.reviewService.reviews;
+
   constructor(
     private reviewService: ReviewService,
     private authService: AuthService,
@@ -399,12 +403,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.isAuthenticated = this.authService.isAuthenticated;
     this.currentUser = this.authService.currentUser;
+    this.reviews = this.reviewService.reviews;
   }
-
-  isAuthenticated = this.authService.isAuthenticated;
-  currentUser = this.authService.currentUser;
   
-  reviews = this.reviewService.reviews;
   recentReviews = computed(() => this.reviewService.getRecentReviews(6));
   topRatedReviews = computed(() => this.reviewService.getTopRatedReviews(6));
   mostLikedReviews = computed(() => this.reviewService.getMostLikedReviews(6));

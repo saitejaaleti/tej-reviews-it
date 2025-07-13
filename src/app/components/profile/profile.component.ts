@@ -778,6 +778,8 @@ export class ProfileComponent implements OnInit {
   isEditMode = signal(false);
   selectedTabIndex = signal(0);
   reviewFilter = signal<string>('all');
+  isAuthenticated!: typeof this.authService.isAuthenticated;
+  currentUser!: typeof this.authService.currentUser;
 
   constructor(
     private fb: FormBuilder,
@@ -796,10 +798,9 @@ export class ProfileComponent implements OnInit {
     if (this.isAuthenticated()) {
       this.initializeProfile();
     }
+    this.isAuthenticated = this.authService.isAuthenticated;
+    this.currentUser = this.authService.currentUser;
   }
-
-  isAuthenticated = this.authService.isAuthenticated;
-  currentUser = this.authService.currentUser;
 
   userReviews = computed(() => {
     const user = this.currentUser();

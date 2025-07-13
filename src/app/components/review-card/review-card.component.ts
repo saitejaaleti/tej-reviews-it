@@ -372,6 +372,8 @@ import { ReviewService } from '../../services/review.service';
 })
 export class ReviewCardComponent {
   @Input() review!: Review;
+  isAuthenticated!: typeof this.authService.isAuthenticated;
+  currentUser!: typeof this.authService.currentUser;
 
   constructor(
     private router: Router,
@@ -380,8 +382,10 @@ export class ReviewCardComponent {
     private snackBar: MatSnackBar
   ) {}
 
-  isAuthenticated = this.authService.isAuthenticated;
-  currentUser = this.authService.currentUser;
+  ngOnInit(): void {
+    this.isAuthenticated = this.authService.isAuthenticated;
+    this.currentUser = this.authService.currentUser;
+  }
 
   getCategoryIcon(): string {
     const iconMap: { [key: string]: string } = {

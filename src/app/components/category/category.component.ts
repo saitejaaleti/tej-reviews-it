@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ReviewService, Review } from '../../services/review.service';
 import { ReviewCardComponent } from '../review-card/review-card.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-category',
@@ -23,7 +24,8 @@ import { ReviewCardComponent } from '../review-card/review-card.component';
     MatChipsModule,
     MatSelectModule,
     MatFormFieldModule,
-    ReviewCardComponent
+    ReviewCardComponent,
+    RouterModule
   ],
   template: `
     <div class="category-container fade-in">
@@ -54,10 +56,10 @@ import { ReviewCardComponent } from '../review-card/review-card.component';
             </div>
           </div>
           <div class="header-actions">
-            <button mat-flat-button color="primary" routerLink="/add-review" [queryParams]="{category: category()}">
+            <a mat-flat-button color="primary" routerLink="/add-review" [queryParams]="{category: category()}">
               <mat-icon>add</mat-icon>
               Add {{ categoryTitle() }} Review
-            </button>
+            </a>
           </div>
         </div>
       </div>
@@ -178,10 +180,10 @@ import { ReviewCardComponent } from '../review-card/review-card.component';
             <mat-icon class="empty-icon">{{ categoryIcon() }}</mat-icon>
             <h3>No {{ categoryTitle() }} reviews yet</h3>
             <p>Be the first to share your {{ categoryTitle().toLowerCase() }} experience!</p>
-            <button mat-flat-button color="primary" routerLink="/add-review" [queryParams]="{category: category()}">
+            <a mat-flat-button color="primary" routerLink="/add-review" [queryParams]="{category: category()}">
               <mat-icon>add</mat-icon>
               Write the First Review
-            </button>
+            </a>
           </div>
         } @else {
           <div class="filtered-empty">

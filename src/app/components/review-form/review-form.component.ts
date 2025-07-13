@@ -14,6 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { AuthService } from '../../services/auth.service';
 import { ReviewService, Review } from '../../services/review.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-review-form',
@@ -29,7 +30,8 @@ import { ReviewService, Review } from '../../services/review.service';
     MatIconModule,
     MatChipsModule,
     MatProgressSpinnerModule,
-    MatStepperModule
+    MatStepperModule,
+    FormsModule
   ],
   template: `
     @if (!isAuthenticated()) {
@@ -310,7 +312,7 @@ import { ReviewService, Review } from '../../services/review.service';
                     <p>{{ detailForm.get('description')?.value }}</p>
                   </div>
 
-                  @if (prosControls.controls.some(control => control.value)) {
+                  @if (hasPros()) {
                     <div class="summary-pros-cons">
                       <div class="pros-list">
                         <h5><mat-icon>thumb_up</mat-icon> Pros:</h5>
@@ -325,7 +327,7 @@ import { ReviewService, Review } from '../../services/review.service';
                     </div>
                   }
 
-                  @if (consControls.controls.some(control => control.value)) {
+                  @if (hasCons()) {
                     <div class="summary-pros-cons">
                       <div class="cons-list">
                         <h5><mat-icon>thumb_down</mat-icon> Cons:</h5>
@@ -724,7 +726,9 @@ export class ReviewFormComponent implements OnInit {
   basicInfoForm: FormGroup;
   detailForm: FormGroup;
   mediaForm: FormGroup;
-  
+  isAuthenticated!: typeof this.authService.isAuthenticated;
+  currentUser!: typeof this.authService.currentUser;
+
   isSubmitting = signal(false);
   isEditMode = signal(false);
   editingReviewId = signal<string | null>(null);
@@ -771,10 +775,19 @@ export class ReviewFormComponent implements OnInit {
         this.loadReviewForEditing(params['edit']);
       }
     });
+    this.isAuthenticated = this.authService.isAuthenticated;
+    this.currentUser = this.authService.currentUser;
   }
 
-  isAuthenticated = this.authService.isAuthenticated;
-  currentUser = this.authService.currentUser;
+  hasPros(): boolean {
+  return this.prosControls.controls.some(control => !!control.value && control.value.trim() !== '');
+}
+
+hasCons(): boolean {
+  return this.consControls.controls.some(control => !!control.value && control.value.trim() !== '');
+}
+
+  
 
   get prosControls() {
     return this.detailForm.get('pros') as FormArray;

@@ -414,6 +414,7 @@ export class SearchComponent implements OnInit {
   categoryControl = new FormControl<string[]>([]);
   ratingControl = new FormControl(0);
   sortControl = new FormControl('newest');
+  allReviews!: typeof this.reviewService.reviews;
   
   isLoading = signal(false);
   searchQuery = signal('');
@@ -434,6 +435,7 @@ export class SearchComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.allReviews = this.reviewService.reviews;
     // Get initial search query from URL
     this.route.queryParams.subscribe(params => {
       if (params['q']) {
@@ -455,8 +457,6 @@ export class SearchComponent implements OnInit {
     // Initial search
     this.performSearch();
   }
-
-  allReviews = this.reviewService.reviews;
 
   filteredReviews = computed(() => {
     let reviews = this.allReviews();
