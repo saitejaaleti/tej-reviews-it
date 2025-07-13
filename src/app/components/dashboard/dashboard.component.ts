@@ -71,7 +71,7 @@ import { ReviewCardComponent } from '../review-card/review-card.component';
       <section class="categories-section">
         <h2 class="section-title">Browse by Category</h2>
         <div class="categories-grid">
-          @for (category of categories; track category.name) {
+          @for (category of categories(); track category.name) {
             <mat-card class="category-card" (click)="navigateToCategory(category.route)">
               <mat-card-content>
                 <div class="category-icon">
