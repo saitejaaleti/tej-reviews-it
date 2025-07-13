@@ -22,7 +22,7 @@ import { ReviewService } from '../../services/review.service';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
-    MatBadgeModule,
+    MatDividerModule,
     MatFormFieldModule,
     MatInputModule,
     FormsModule
